@@ -1,165 +1,95 @@
 import React, { Component, useState } from "react";
+import Card from "./components/Card";
 
 function App() {
-  const [number, setNumber] = useState(0);
-  const [color, setColor] = useState(0);
+  const items = ["Red", "Blue", "Green", "Brown"];
+  const [selectColor, setSelectColor] = useState("");
+  const [isSelected, setisSelected] = useState(0);
   const [status, setStatus] = useState("");
-  const [user, setUser] = useState("");
   const [bot, setBot] = useState("");
-  const [statusBut, setStatusBut] = useState(false);
-
-  const handleClick = () => {
-    setStatusBut(true);
-    if (
-      (color == 1 && number == 3) ||
-      (color == 3 && number == 4) ||
-      (color == 4 && number == 2) ||
-      (color == 2 && number == 1)
-    ) {
-      setStatus("Win");
-    } else if (
-      (number == 1 && color == 3) ||
-      (number == 3 && color == 4) ||
-      (number == 4 && color == 2) ||
-      (number == 2 && color == 1)
-    ) {
-      setStatus("Lose");
-    } else if (number == color) {
-      setStatus("Draw");
-    } else {
-      setStatus("Draw");
-    }
-    if (number == 1) {
+  const handlePlay = () => {
+    const randomNumber = Math.floor(Math.random() * items.length);
+    //setBot(randomNumber);
+    let color = "";
+    if (randomNumber == 0) {
       setBot("Red");
-    } else if (number == 2) {
+      color = "Red";
+    } else if (randomNumber == 1) {
       setBot("Blue");
-    } else if (number == 3) {
+      color = "Blue";
+    } else if (randomNumber == 2) {
       setBot("Green");
-    } else if (number == 4) {
+      color = "Green";
+    } else if (randomNumber == 3) {
       setBot("Brown");
+      color = "Brown";
     } else {
       setBot("");
     }
-    if (color == 1) {
-      setUser("Red");
-    } else if (color == 2) {
-      setUser("Blue");
-    } else if (color == 3) {
-      setUser("Green");
-    } else if (color == 4) {
-      setUser("Brown");
+    console.log(items[isSelected]);
+    console.log(bot);
+    if (
+      (items[isSelected] == "Red" && color == "Green") ||
+      (items[isSelected] == "Green" && color == "Brown") ||
+      (items[isSelected] == "Brown" && color == "Blue") ||
+      (items[isSelected] == "Blue" && color == "Red")
+    ) {
+      setStatus("Win");
+    } else if (
+      (color == "Red" && items[isSelected] == "Green") ||
+      (color == "Green" && items[isSelected] == "Brown") ||
+      (color == "Brown" && items[isSelected] == "Blue") ||
+      (color == "Blue" && items[isSelected] == "Red")
+    ) {
+      setStatus("Lose");
+    } else if (color == items[isSelected]) {
+      setStatus("Draw");
     } else {
-      setUser("");
+      setStatus("Draw");
     }
+    // console.log(items[isSelected]);
+    // console.log(bot);
+    // console.log(status);
   };
-  const handleClickRadio = (selected) => {
-    setColor(selected);
-    const min = Math.ceil(1);
-    const max = Math.floor(4);
-    const randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
-    setNumber(randomNumber);
-    setStatusBut(false);
-  };
-
   return (
-    <div style={{ textAlign: "center" }}>
-      <div
-        className="card"
-        style={{ display: "flex", justifyContent: "center" }}
-      >
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              backgroundColor: "red",
-              width: 100,
-              height: 150,
-              margin: 10,
-              borderColor: "black",
-              borderStyle: "solid",
-              borderWidth: 2,
-            }}
-            onClick={(e) => handleClickRadio(1)}
-          ></div>
-          <input
-            type="radio"
-            value="1"
-            name="red"
-            checked={color === 1}
-            onClick={(e) => handleClickRadio(1)}
+    <div className="App">
+      <div className="card-main">
+        {items.map((option, index) => (
+          <Card
+            key={index}
+            selected={isSelected === index}
+            option={option}
+            onChange={() => setisSelected(index)}
           />
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              backgroundColor: "blue",
-              width: 100,
-              height: 150,
-              margin: 10,
-              borderColor: "black",
-              borderStyle: "solid",
-              borderWidth: 2,
-            }}
-            onClick={(e) => handleClickRadio(2)}
-          ></div>
-          <input
-            type="radio"
-            value="2"
-            name="blue"
-            checked={color === 2}
-            onClick={(e) => handleClickRadio(2)}
-          />
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              backgroundColor: "green",
-              width: 100,
-              height: 150,
-              margin: 10,
-              borderColor: "black",
-              borderStyle: "solid",
-              borderWidth: 2,
-            }}
-            onClick={(e) => handleClickRadio(3)}
-          ></div>
-          <input
-            type="radio"
-            value="3"
-            name="green"
-            checked={color === 3}
-            onClick={(e) => handleClickRadio(3)}
-          />
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              backgroundColor: "#4e2300",
-              width: 100,
-              height: 150,
-              margin: 10,
-              borderColor: "black",
-              borderStyle: "solid",
-              borderWidth: 2,
-            }}
-            onClick={(e) => handleClickRadio(4)}
-          ></div>
-          <input
-            type="radio"
-            value="4"
-            name="brown"
-            checked={color === 4}
-            onClick={(e) => handleClickRadio(4)}
-          />
-        </div>
+        ))}
       </div>
-      <div>
-        <button onClick={handleClick} disabled={statusBut}>
-          Play
-        </button>
+      <button className="btn-play" onClick={handlePlay}>
+        Play
+      </button>
+      <div className="detail-contanier">
+        <table className="detail">
+          <tr>
+            <td className="detail-subject">
+              <p>Player</p>
+            </td>
+            <td className="detail-content"> {items[isSelected]}</td>
+          </tr>
+          <tr>
+            <td className="detail-subject">
+              <p>Bot</p>
+            </td>
+            <td className="detail-content">{bot}</td>
+          </tr>
+          <tr>
+            <td className="detail-subject">
+              <p>Status</p>
+            </td>
+            <td className="detail-content">
+              <p className={"status-" + status}>{status}</p>
+            </td>
+          </tr>
+        </table>
       </div>
-      <p>Player : {user}</p>
-      <p>Bot : {bot}</p>
-      <p>Status : {status}</p>
     </div>
   );
 }

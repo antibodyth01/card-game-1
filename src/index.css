@@ -1,13 +1,67 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.App {
+  text-align: center;
+}
+.card-main {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.btn-play {
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #1d0dfd;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.detail-contanier {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.main-detail {
+  display: flex;
+  justify-content: center;
+}
+.detail {
+  width: 100%;
+  max-width: 500px;
+  border: solid #00000052 3px;
+  background-color: #00ffff36;
+  border-radius: 10px;
+  border-collapse: collapse;
+  font-weight: bold;
+}
+.detail-subject {
+  width: 250px;
+  border: solid #00000052 3px;
+}
+.detail-content {
+  width: 250px;
+  border: solid #00000052 3px;
+}
+.status-Win {
+  color: green;
+}
+.status-Lose {
+  color: red;
+}
+.status-Draw {
+  color: black;
 }
